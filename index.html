@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobBoard - Trouvez votre emploi idéal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Animation pour la barre de navigation */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Animation pour la barre latérale */
+        .sidebar {
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar:hover {
+            transform: translateX(5px);
+        }
+        
+        .sidebar-item {
+            transition: all 0.2s ease;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #f3f4f6;
+            transform: translateX(10px);
+            border-left: 4px solid #3b82f6;
+        }
+        
+        /* Animation pour le bouton de connexion */
+        .login-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Animation pour le bouton de menu mobile */
+        .mobile-menu-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Barre de navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-briefcase text-blue-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-800">JobBoard</span>
+                    </div>
+                    
+                    <!-- Liens de navigation principaux (version desktop) -->
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="#" class="nav-link text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium">
+                            <i class="fas fa-home mr-2"></i> Accueil
+                        </a>
+                        <a href="#" class="nav-link text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+                            <i class="fas fa-search mr-2"></i> Recherche
+                        </a>
+                        <a href="#" class="nav-link text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+                            <i class="fas fa-building mr-2"></i> Entreprises
+                        </a>
+                        <a href="#" class="nav-link text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+                            <i class="fas fa-newspaper mr-2"></i> Blog
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Boutons côté droit (version desktop) -->
+                <div class="hidden md:flex items-center">
+                    <a href="#" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                        <i class="fas fa-bell"></i>
+                    </a>
+                    <a href="#" class="login-btn ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Connexion
+                    </a>
+                    <a href="#" class="login-btn ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <i class="fas fa-user-plus mr-2"></i> Inscription
+                    </a>
+                </div>
+                
+                <!-- Bouton menu mobile -->
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button class="mobile-menu-btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu mobile -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <i class="fas fa-home mr-2"></i> Accueil
+                </a>
+                <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <i class="fas fa-search mr-2"></i> Recherche
+                </a>
+                <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <i class="fas fa-building mr-2"></i> Entreprises
+                </a>
+                <a href="#" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <i class="fas fa-newspaper mr-2"></i> Blog
+                </a>
+                <div class="border-t border-gray-200 pt-4 pb-3">
+                    <div class="flex items-center px-5">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-user-circle text-gray-400 text-3xl"></i>
+                        </div>
+                        <div class="ml-3">
+                            <div class="text-base font-medium text-gray-800">Invité</div>
+                            <div class="text-sm font-medium text-gray-500">Non connecté</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 space-y-1 px-2">
+                        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Connexion
+                        </a>
+                        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                            <i class="fas fa-user-plus mr-2"></i> Inscription
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex">
+        <!-- Barre latérale -->
+        <aside class="sidebar hidden md:block w-64 bg-white shadow-md h-screen sticky top-16">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-filter mr-2 text-blue-500"></i> Filtres
+                </h2>
+                
+                <div class="space-y-2">
+                    <div class="sidebar-item p-3 rounded-lg cursor-pointer">
+                        <h3 class="font-medium text-gray-700 flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2 text-blue-400"></i> Localisation
+                        </h3>
+                        <div class="mt-2 pl-6">
+                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option>Toutes les régions</option>
+                                <option>Île-de-France</option>
+                                <option>Auvergne-Rhône-Alpes</option>
+                                <option>Nouvelle-Aquitaine</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-item p-3 rounded-lg cursor-pointer">
+                        <h3 class="font-medium text-gray-700 flex items-center">
+                            <i class="fas fa-euro-sign mr-2 text-green-400"></i> Salaire
+                        </h3>
+                        <div class="mt-2 pl-6">
+                            <input type="range" min="20000" max="100000" step="5000" class="mt-2 w-full">
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>20K€</span>
+                                <span>100K€</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-item p-3 rounded-lg cursor-pointer">
+                        <h3 class="font-medium text-gray-700 flex items-center">
+                            <i class="fas fa-briefcase mr-2 text-purple-400"></i> Type de contrat
+                        </h3>
+                        <div class="mt-2 pl-6 space-y-2">
+                            <div class="flex items-center">
+                                <input id="cdi" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="cdi" class="ml-2 text-sm text-gray-700">CDI</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="cdd" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="cdd" class="ml-2 text-sm text-gray-700">CDD</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="stage" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="stage" class="ml-2 text-sm text-gray-700">Stage</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-item p-3 rounded-lg cursor-pointer">
+                        <h3 class="font-medium text-gray-700 flex items-center">
+                            <i class="fas fa-graduation-cap mr-2 text-yellow-400"></i> Niveau d'expérience
+                        </h3>
+                        <div class="mt-2 pl-6 space-y-2">
+                            <div class="flex items-center">
+                                <input id="junior" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="junior" class="ml-2 text-sm text-gray-700">Junior (0-2 ans)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="intermediate" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="intermediate" class="ml-2 text-sm text-gray-700">Intermédiaire (2-5 ans)</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="senior" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="senior" class="ml-2 text-sm text-gray-700">Senior (+5 ans)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
+                        <i class="fas fa-sync-alt mr-2"></i> Appliquer les filtres
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="flex-1 p-6">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-3xl font-bold text-gray-800 mb-6">Offres d'emploi récentes</h1>
+                
+                <!-- Barre de recherche -->
+                <div class="bg-white shadow rounded-lg p-4 mb-6">
+                    <div class="flex">
+                        <input type="text" placeholder="Titre du poste, compétences, entreprise..." class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-r-lg transition duration-300 ease-in-out transform hover:scale-105">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Liste des offres -->
+                <div class="space-y-4">
+                    <!-- Offre 1 -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <img class="h-12 w-12 rounded-full" src="https://via.placeholder.com/150" alt="Logo entreprise">
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h2 class="text-xl font-semibold text-gray-800">Développeur Full Stack</h2>
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                            <i class="fas fa-bolt mr-1"></i> Urgent
+                                        </span>
+                                    </div>
+                                    <p class="text-blue-600 font-medium">TechCorp</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                            <i class="fas fa-map-marker-alt mr-1"></i> Paris
+                                        </span>
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">
+                                            <i class="fas fa-euro-sign mr-1"></i> 45K-55K
+                                        </span>
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <i class="fas fa-briefcase mr-1"></i> CDI
+                                        </span>
+                                    </div>
+                                    <p class="mt-3 text-gray-600">Nous recherchons un développeur Full Stack expérimenté pour rejoindre notre équipe dynamique et travailler sur des projets innovants.</p>
+                                    <div class="mt-4 flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">Publié il y a 2 jours</span>
+                                        <button class="text-blue-600 hover:text-blue-800 font-medium">
+                                            Voir l'offre <i class="fas fa-arrow-right ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Offre 2 -->
+                    <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
+                        <div class="p-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <img class="h-12 w-12 rounded-full" src="https://via.placeholder.com/150" alt="Logo entreprise">
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h2 class="text-xl font-semibold text-gray-800">UX/UI Designer</h2>
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                            <i class="fas fa-star mr-1"></i> Populaire
+                                        </span>
+                                    </div>
+                                    <p class="text-blue-600 font-medium">DesignHub</p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                            <i class="fas fa-map-marker-alt mr-1"></i> Lyon
+                                        </span>
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">
+                                            <i class="fas fa-euro-sign mr-1"></i> 40K-50K
+                                        </span>
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <i class="fas fa-briefcase mr-1"></i> CDI
+                                        </span>
+                                    </div>
+                                    <p class="mt-3 text-gray-600">Rejoignez notre équipe de design en tant qu'UX/UI Designer pour créer des expériences utilisateur exceptionnelles pour nos clients.</p>
+                                    <div class="mt-4 flex justify-between items-center">
+                                        <span class="text-sm text-gray-500">Publié il y a 5 jours</span>
+                                        <button class="text-blue-600 hover:text-blue-800 font-medium">
+                                            Voir l'offre <i class="fas fa-arrow-right ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Gestion du menu mobile
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
